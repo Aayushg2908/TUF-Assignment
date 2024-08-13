@@ -10,22 +10,28 @@ const Flashcard = ({ flashcard }: { flashcard: PrismaFlashcard }) => {
 
   return (
     <CarouselItem className="h-[500px]">
-      <Card>
-        <CardContent
-          onClick={() => setIsFlipped(!isFlipped)}
-          className="w-full min-h-[200px] md:min-h-[300px] h-fit flex items-center justify-center p-6 cursor-pointer border-2"
-        >
-          {!isFlipped ? (
-            <span className="text-3xl font-semibold text-center transition-all duration-500">
-              {flashcard.question}
-            </span>
-          ) : (
-            <span className="text-lg transition-all duration-500">
-              {flashcard.answer}
-            </span>
-          )}
-        </CardContent>
-      </Card>
+      <div className="flip-container w-full h-full">
+        <div className={`flipper ${isFlipped ? "is-flipped" : ""}`}>
+          <Card className="front">
+            <CardContent
+              onClick={() => setIsFlipped(!isFlipped)}
+              className="w-full min-h-[200px] md:min-h-[300px] h-fit flex items-center justify-center p-6 cursor-pointer border-2"
+            >
+              <span className="text-3xl font-semibold text-center">
+                {flashcard.question}
+              </span>
+            </CardContent>
+          </Card>
+          <Card className="back">
+            <CardContent
+              onClick={() => setIsFlipped(!isFlipped)}
+              className="w-full min-h-[200px] md:min-h-[300px] h-fit flex items-center justify-center p-6 cursor-pointer border-2"
+            >
+              <span className="text-lg">{flashcard.answer}</span>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </CarouselItem>
   );
 };
